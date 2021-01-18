@@ -1,3 +1,0 @@
-C:\Users\Student\Documents\DT\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
-D:\Nejc\LASPP\poucevanje\RVP\seminarji\2016-17\v2\Gantar_Kren\digitalniDvojcki_v2\digitalniDvojcki\unityProjects\robo\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
-D:\Nejc\sluzba\LASPP\poucevanje\PA\Vaje\FTsim\src\unityProjects\EN\S7-ProSim\Robot3D_1.6\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
