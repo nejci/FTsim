@@ -1,6 +1,9 @@
 # FTsim
 A 3D simulation of the Fischertechnik training models with a connector to Siemens S7-PLCSIM emulator.
 
+![Training models](https://github.com/nejci/FTsim/blob/main/FTmodels.jpg?raw=true)
+
+
 The following training models are simulated:
 - 3D-Robot
 - [3D-Robot TX](https://www.fischertechnik.de/en/products/simulating/training-models/511938-sim-3d-robot-24v-simulation) (a 3D-Robot enhanced by encoders)
