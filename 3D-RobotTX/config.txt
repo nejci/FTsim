@@ -1,0 +1,8 @@
+table_speed:20
+table_num_impulses:150
+extend_speed:0.25
+extend_num_impulses:103
+lift_speed:0.42
+lift_num_impulses:78
+hand_speed:0.3
+hand_num_impulses:17
