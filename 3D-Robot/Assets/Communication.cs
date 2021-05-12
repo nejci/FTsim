@@ -30,7 +30,7 @@ public class Communication : MonoBehaviour
 
 			while ((line = reader.ReadLine ()) != null) {  
 				string[] lineparts = line.Split (':');
-				if (lineparts [0] == "table_speed") {					
+				if (lineparts [0] == "table_speed") {
 					table_speed = System.Convert.ToSingle (lineparts [1]);
 				} 
 				else if (lineparts [0] == "table_num_impulses") {
@@ -57,7 +57,7 @@ public class Communication : MonoBehaviour
 				else if (lineparts [0] == "PLC_cycle") {
 					PLC_cycle = System.Convert.ToSingle (lineparts [1]);
 				}
-				else if (lineparts[0] == "showFPS")				{
+				else if (lineparts[0] == "showFPS") {
 					isShowFPS = System.Convert.ToInt32(lineparts[1]);
 				}
 			}
@@ -89,10 +89,10 @@ public class Communication : MonoBehaviour
     //outputs
     public void table_ref(bool val) { write(0, 0, val); }
     public void table_imp_a(bool val) { write(0, 1, val); }
-    public void arm_ref(bool val) { write(0, 2, val); }
-    public void arm_imp(bool val) { write(0,3, val); }
-    public void vertical_ref(bool val) { write(0,4, val); }
-    public void vertical_imp_a(bool val) { write(0,5, val); }
+    public void extend_ref(bool val) { write(0, 2, val); }
+    public void extend_imp(bool val) { write(0,3, val); }
+    public void lift_ref(bool val) { write(0,4, val); }
+    public void lift_imp_a(bool val) { write(0,5, val); }
     public void hand_ref(bool val) { write(0,6, val); }
     public void hand_imp(bool val) { write(0,7, val); }
 
@@ -108,10 +108,10 @@ public class Communication : MonoBehaviour
     //inputs
     public bool table_dir() { return read(0, 0); }
 	public bool table_run() { return read (0, 1); }
-    public bool arm_dir() { return read(0, 2); }
-    public bool arm_run() { return read(0, 3); }
-    public bool vertical_dir() { return read(0, 4); }
-    public bool vertical_run() { return read(0, 5); }
+    public bool extend_dir() { return read(0, 2); }
+    public bool extend_run() { return read(0, 3); }
+    public bool lift_dir() { return read(0, 4); }
+    public bool lift_run() { return read(0, 5); }
     public bool hand_dir() { return read(0, 6); }
     public bool hand_run() { return read(0, 7); }
 

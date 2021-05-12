@@ -5,20 +5,20 @@
 # Settings in this file are loaded at a startup of FTsim.
 # Reload of FTsim is required to apply changes.
 
-# Movement speed - chose between 0.1 (slow) and 1.0 (fast)
+# Movement speed - choose between 0.1 (slow) and 1.0 (fast)
 table_speed:1.0
 extend_speed:1.0
 lift_speed:1.0
 hand_speed:1.0
 
-# Number generated impulses 
+# Number of generated impulses 
 table_num_impulses:180
 extend_num_impulses:80
 lift_num_impulses:120
 hand_num_impulses:18
 
 # Target cycle of PLCSIM emulator in seconds
-# This value is used when generating impulse signal:
+# This value is used when generating an impulse signal:
 # signal is high/low at least for PLC_cycle seconds.
 # Increase this number if you experience wrong counting of impulses.
 PLC_cycle:0.020

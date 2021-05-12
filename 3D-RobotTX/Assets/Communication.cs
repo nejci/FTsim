@@ -9,13 +9,15 @@ public class Communication : MonoBehaviour
     
 	public string file_params = "config.txt";
 	public float table_speed = 20f;
-	public float table_signals = 150f;
+	public int table_signals = 150;
 	public float horizontal_speed = 0.25f;
-	public float horizontal_signals = 103f;
+	public int horizontal_signals = 103;
 	public float vertical_speed = 0.42f;
-	public float vertical_signals = 78f;
+	public int vertical_signals = 78;
 	public float hand_speed = 0.3f;
-	public float hand_signals = 17f;
+	public int hand_signals = 17;
+	public float PLC_cycle = 0.050f;
+	public int isShowFPS = 1;
 	public bool paramsRead;
 
 	public void ReadParams()
@@ -31,25 +33,31 @@ public class Communication : MonoBehaviour
 					table_speed = System.Convert.ToSingle (lineparts [1]);
 				} 
 				else if (lineparts [0] == "table_num_impulses") {
-					table_signals = System.Convert.ToSingle (lineparts [1]);
+					table_signals = System.Convert.ToInt32 (lineparts [1]);
 				}
 				else if (lineparts [0] == "lift_speed") {
 					vertical_speed = System.Convert.ToSingle (lineparts [1]);
 				}
 				else if (lineparts [0] == "lift_num_impulses") {
-					vertical_signals = System.Convert.ToSingle (lineparts [1]);
+					vertical_signals = System.Convert.ToInt32 (lineparts [1]);
 				}
 				else if (lineparts [0] == "extend_speed") {
 					horizontal_speed = System.Convert.ToSingle (lineparts [1]);
 				}
 				else if (lineparts [0] == "extend_num_impulses") {
-					horizontal_signals = System.Convert.ToSingle (lineparts [1]);
+					horizontal_signals = System.Convert.ToInt32 (lineparts [1]);
 				}
 				else if (lineparts [0] == "hand_speed") {
 					hand_speed = System.Convert.ToSingle (lineparts [1]);
 				}
 				else if (lineparts [0] == "hand_num_impulses") {
-					hand_signals = System.Convert.ToSingle (lineparts [1]);
+					hand_signals = System.Convert.ToInt32 (lineparts [1]);
+				}
+				else if (lineparts [0] == "PLC_cycle") {
+					PLC_cycle = System.Convert.ToSingle (lineparts [1]);
+				}
+				else if (lineparts[0] == "showFPS") {
+					isShowFPS = System.Convert.ToInt32(lineparts[1]);
 				}
 			}
 			reader.Close ();
@@ -81,11 +89,11 @@ public class Communication : MonoBehaviour
 	public void table_ref(bool val) { write(0,5, val); }
 	public void table_imp_a(bool val) { write(0, 3, val); }
 	public void table_imp_b(bool val) { write(0, 4, val); }
-	public void arm_ref(bool val) { write(1,0, val); }
-	public void arm_imp(bool val) { write(1,1, val); }
-	public void vertical_ref(bool val) { write(0,2, val); }
-	public void vertical_imp_a(bool val) { write(0,0, val); }
-	public void vertical_imp_b(bool val) { write(0,1, val); }
+	public void extend_ref(bool val) { write(1,0, val); }
+	public void extend_imp(bool val) { write(1,1, val); }
+	public void lift_ref(bool val) { write(0,2, val); }
+	public void lift_imp_a(bool val) { write(0,0, val); }
+	public void lift_imp_b(bool val) { write(0,1, val); }
 	public void hand_ref(bool val) { write(0,6, val); }
 	public void hand_imp(bool val) { write(0,7, val); }
 
@@ -101,10 +109,10 @@ public class Communication : MonoBehaviour
     //inputs
 	public bool table_CW() { return read(0, 7); }
 	public bool table_CCW() { return read(0, 6); }
-	public bool arm_forward() { return read(1, 3); }
-	public bool arm_reverse() { return read(1, 2); }
-	public bool vertical_up() { return read(0, 4); }
-	public bool vertical_down() { return read(0, 5); }
+	public bool extend_forward() { return read(1, 3); }
+	public bool extend_reverse() { return read(1, 2); }
+	public bool lift_up() { return read(0, 4); }
+	public bool lift_down() { return read(0, 5); }
 	public bool hand_open() { return read(1, 1); }
 	public bool hand_close() { return read(1, 0); }
 
@@ -129,7 +137,7 @@ public class Communication : MonoBehaviour
 
     public static void ps_ConnectionError(string controlEngine, int error)
     {
-        Debug.Log("handling");
+		Debug.Log("Connection to PLCSIM threw errors.");
     }
 
     void Start()

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/robo.unity
+- path: Assets/3D-RobotTX.unity
   isLoaded: 1
   isActive: 1

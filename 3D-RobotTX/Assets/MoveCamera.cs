@@ -18,6 +18,7 @@ public class MoveCamera : MonoBehaviour
 	private bool isPanning;		// Is the camera being panned?
 	private bool isRotating;	// Is the camera being rotated?
 	private bool isZooming;		// Is the camera zooming?
+	private bool isShiftPressed;
 
 	// Starting point
 	Vector3 cameraStartPoint = Vector3.zero;
@@ -33,40 +34,56 @@ public class MoveCamera : MonoBehaviour
 		cameraStartPoint = transform.position;
 		cameraStartRotation = transform.rotation;
 	}
+
+	void OnGUI()
+	{
+		isShiftPressed = Event.current.shift;
+	}
+
 	//
 	// UPDATE
 	//
 	void Update () 
 	{
-		// Get the left mouse button
-		if(Input.GetMouseButtonDown(0))
+		float scrollWheel = 0;
+
+		// If holding shift, camera move is disabled
+		if (isShiftPressed) 
 		{
-			// Get mouse origin
-			mouseOrigin = Input.mousePosition;
-			isRotating = true;
+			// Get the left mouse button
+			if (Input.GetMouseButtonDown (0)) 
+			{
+				// Get mouse origin
+				mouseOrigin = Input.mousePosition;
+				isRotating = true;
+			}
+
+			// Get the right mouse button
+			if (Input.GetMouseButtonDown (1)) 
+			{
+				// Get mouse origin
+				mouseOrigin = Input.mousePosition;
+				isPanning = true;
+			}
+
+			// Get the middle mouse button
+			if (Input.GetMouseButtonDown (2)) 
+			{
+				// Get mouse origin
+				mouseOrigin = Input.mousePosition;
+				isZooming = true;
+			}
+
+			scrollWheel = Input.GetAxis ("Mouse ScrollWheel");
+
+			// Disable movements on button release
+			if (!Input.GetMouseButton (0))
+				isRotating = false;
+			if (!Input.GetMouseButton (1))
+				isPanning = false;
+			if (!Input.GetMouseButton (2))
+				isZooming = false;
 		}
-
-		// Get the right mouse button
-		if(Input.GetMouseButtonDown(1))
-		{
-			// Get mouse origin
-			mouseOrigin = Input.mousePosition;
-			isPanning = true;
-		}
-
-		// Get the middle mouse button
-		if(Input.GetMouseButtonDown(2))
-		{
-			// Get mouse origin
-			mouseOrigin = Input.mousePosition;
-			isZooming = true;
-		}
-
-		// Disable movements on button release
-		if (!Input.GetMouseButton(0)) isRotating=false;
-		if (!Input.GetMouseButton(1)) isPanning=false;
-		if (!Input.GetMouseButton(2)) isZooming=false;
-
 		// Rotate camera along X and Y axis
 		if (isRotating)
 		{
@@ -90,45 +107,54 @@ public class MoveCamera : MonoBehaviour
 		{
 			Vector3 pos = Camera.main.ScreenToViewportPoint (Input.mousePosition - mouseOrigin);
 
-			if (Camera.main.orthographic) {
+			if (Camera.main.orthographic) 
+			{
 				Camera.main.orthographicSize = Camera.main.orthographicSize - pos.y * zoomSpeed;
-			} else {
+			} 
+			else 
+			{
 				Vector3 move = pos.y * zoomSpeed * transform.forward; 
 				transform.Translate (move, Space.World);
 			}
 		}
 		// Scrollwheel
-		float scrollWheel = Input.GetAxis ("Mouse ScrollWheel");
-		if (scrollWheel != 0) {			
-			if (Camera.main.orthographic) {
+		if (scrollWheel != 0) 
+		{
+			if (Camera.main.orthographic) 
+			{
 				Camera.main.orthographicSize = Camera.main.orthographicSize - scrollWheel;
-			} else {
+			} 
+			else 
+			{
 				Vector3 moveScroll = scrollWheel * zoomSpeed * transform.forward;
 				transform.Translate (moveScroll, Space.World);
 			}
 		}
-
 	}
 
-	public void setCameraTop(){
+	public void setCameraTop()
+	{
 		transform.position = cameraPositionTop;
 		transform.rotation = cameraRotationTop;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 6.7f;
 	}
-	public void setCameraSide(){
+	public void setCameraSide()
+	{
 		transform.position = cameraPositionSide;
 		transform.rotation = cameraRotationSide;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 4.5f;
 	}
 
-	public void resetCamera(){
+	public void resetCamera()
+	{
 		transform.position = cameraStartPoint;
 		transform.rotation = cameraStartRotation;
 		Camera.main.orthographic = false;
 	}
-	public void infoCamera(){
+
+	/*public void infoCamera(){
 		if (GameObject.FindWithTag ("Dialog_error_PLCSIM") == null && GameObject.FindWithTag ("Dialog_camera_info") == null) {
 			Dialog.MessageBox (
 				"Dialog_camera_info", 
@@ -153,5 +179,5 @@ public class MoveCamera : MonoBehaviour
 				heightMax: 320,
 				pos_y: 20);
 		}
-	}
+	}*/
 }

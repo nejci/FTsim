@@ -46,7 +46,7 @@ public class VirtualPlatformMove : MonoBehaviour {
 		pos = rb.position;
 
 		if (!isMoving) {
-			if (Input.GetKeyDown (KeyCode.UpArrow)) {	
+			if (Input.GetKeyDown (KeyCode.UpArrow)) {
 				pos_old = pos;
 				dest = pos;
 				dest.z += moveStep;
@@ -56,7 +56,7 @@ public class VirtualPlatformMove : MonoBehaviour {
 				watchDog = 0;
 
 			}
-			if (Input.GetKeyDown (KeyCode.DownArrow)) {	
+			if (Input.GetKeyDown (KeyCode.DownArrow)) {
 				pos_old = pos;
 				dest = pos;
 				dest.z -= moveStep;
@@ -66,7 +66,7 @@ public class VirtualPlatformMove : MonoBehaviour {
 				watchDog = 0;
 
 			}
-			if (Input.GetKeyDown (KeyCode.LeftArrow)) {	
+			if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 				pos_old = pos;
 				dest = pos;
 				dest.x -= moveStep;
@@ -76,7 +76,7 @@ public class VirtualPlatformMove : MonoBehaviour {
 				watchDog = 0;
 
 			}
-			if (Input.GetKeyDown (KeyCode.RightArrow)) {	
+			if (Input.GetKeyDown (KeyCode.RightArrow)) {
 				pos_old = pos;
 				dest = pos;
 				dest.x += moveStep;
@@ -85,7 +85,7 @@ public class VirtualPlatformMove : MonoBehaviour {
 				isMoving = true;
 				watchDog = 0;
 			}
-			if (Input.GetKeyDown (KeyCode.PageUp)) {	
+			if (Input.GetKeyDown (KeyCode.PageUp)) {
 				pos_old = pos;
 				dest = pos;
 				dest.y += moveStep;
@@ -95,7 +95,7 @@ public class VirtualPlatformMove : MonoBehaviour {
 				watchDog = 0;
 
 			}
-			if (Input.GetKeyDown (KeyCode.PageDown)) {	
+			if (Input.GetKeyDown (KeyCode.PageDown)) {
 				pos_old = pos;
 				dest = pos;
 				dest.y -= moveStep;
@@ -118,7 +118,7 @@ public class VirtualPlatformMove : MonoBehaviour {
 		lastSqrtMag = sqrtMag;
 
 		// collided! move back to old position
-		if (hasCollided || watchDog > timeLimitMove) {			
+		if (hasCollided || watchDog > timeLimitMove) {
 			dest = pos_old;
 			desiredVelocity = (dest - pos).normalized;
 			lastSqrtMag = Mathf.Infinity;

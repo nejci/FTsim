@@ -1,8 +1,29 @@
-table_speed:20
+#----------------------------------------------------------
+# FTsim - Robot3D-TX
+# CONFIG FILE
+#----------------------------------------------------------
+# Settings in this file are loaded at a startup of FTsim.
+# Reload of FTsim is required to apply changes.
+
+# Movement speed - choose between 0.1 (slow) and 1.0 (fast)
+table_speed:1.0
+extend_speed:1.0
+lift_speed:1.0
+hand_speed:1.0
+
+# Number of generated impulses 
 table_num_impulses:150
-extend_speed:0.25
 extend_num_impulses:103
-lift_speed:0.42
 lift_num_impulses:78
-hand_speed:0.3
 hand_num_impulses:17
+
+# Target cycle of PLCSIM emulator in seconds
+# This value is used when generating an impulse signal:
+# signal is high/low at least for PLC_cycle seconds.
+# Increase this number if you experience wrong counting of impulses.
+PLC_cycle:0.020
+
+# Show FPS count
+# 1 - on
+# 0 - off
+showFPS:1

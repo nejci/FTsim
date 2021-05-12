@@ -17,7 +17,6 @@ public class ArmTable : MonoBehaviour {
     public Transform table_rotation_ref;
     public Transform table_position_end;
 
-
     float speed_factor;
     int signals;
     Vector3 rotateCW;
@@ -44,7 +43,6 @@ public class ArmTable : MonoBehaviour {
     bool allowedToMove = true;
 
     void OnTriggerEnter(Collider other)
-
     {
         if (other.transform == table_switch_ref)
         {
@@ -101,7 +99,7 @@ public class ArmTable : MonoBehaviour {
         referenceSwitch = false;
         danger_ccw = false; 
         danger_cw = false;
-        dangerSign = GameObject.FindGameObjectWithTag ("Danger_miza");
+        dangerSign = GameObject.FindGameObjectWithTag ("Danger_table");
         dangerSign.SetActive (false);
 
         // Angle between the limit and starting position of the table (the smaller angle - ie 90 degrees)
@@ -121,39 +119,39 @@ public class ArmTable : MonoBehaviour {
     void rotate_CW()
     {
         if (!danger_cw) {
-            table.Rotate (rotateCW);
-        } 
+            table.Rotate(rotateCW);
+        }
     }
 
     void rotate_CCW()
     {
         if (!danger_ccw)
         {
-            table.Rotate (-rotateCW);
+            table.Rotate(-rotateCW);
         }
     }
-
-
-
+    
     // Update is called once per frame
     void Update()
     {
-		// Show/hide danger sign if off limits
-        if (danger_cw || danger_ccw) {
+        // Show/hide danger sign if off limits
+        if (danger_cw || danger_ccw) 
+        {
             dangerSign.SetActive (true);
         }
-        else{
-            dangerSign.SetActive (false);	
+        else
+        {
+            dangerSign.SetActive (false);
         }
         
-		// Consider forced values for reference and impulse
+        // Consider forced values for reference and impulse
         if (toggle_ref_on.GetComponent<Toggle>().isOn)
             com.table_ref(true);
         else if(toggle_ref_off.GetComponent<Toggle>().isOn)
             com.table_ref(false);
         else
             com.table_ref(referenceSwitch);
-		        
+        
         forceImpOn = toggle_imp_on.GetComponent<Toggle>().isOn;
         forceImpOff = toggle_imp_off.GetComponent<Toggle>().isOn;
         
@@ -234,7 +232,7 @@ public class ArmTable : MonoBehaviour {
             }
         }
 
-		// Apply forced/computed values to impulse state
+        // Apply forced/computed values to impulse state
         if (forceImpOn)
             com.table_imp_a(true);
         else if(forceImpOff)

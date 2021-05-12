@@ -57,7 +57,6 @@ public class Panel : MonoBehaviour
 		} else {
 			PlayerPrefs.SetInt ("showHelpOnStart", 0);
 		}
-
 	}
 
     public void newPart()

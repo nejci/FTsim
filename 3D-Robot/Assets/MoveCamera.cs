@@ -19,6 +19,7 @@ public class MoveCamera : MonoBehaviour
 	private bool isRotating;	// Is the camera being rotated?
 	private bool isZooming;		// Is the camera zooming?
 	private bool isShiftPressed;
+	
 	// Starting point
 	Vector3 cameraStartPoint = Vector3.zero;
 	Quaternion cameraStartRotation;
@@ -34,7 +35,8 @@ public class MoveCamera : MonoBehaviour
 		cameraStartRotation = transform.rotation;
 	}
 
-	void OnGUI(){
+	void OnGUI()
+	{
 		isShiftPressed = Event.current.shift;
 	}
 
@@ -44,33 +46,36 @@ public class MoveCamera : MonoBehaviour
 	void Update () 
 	{
 		float scrollWheel = 0;
-
-		// If holding shift, camera move is disabled
-		if (isShiftPressed) {			
 		
+		// If holding shift, camera move is disabled
+		if (isShiftPressed) 
+		{
 			// Get the left mouse button
-			if (Input.GetMouseButtonDown (0)) {
+			if (Input.GetMouseButtonDown (0)) 
+			{
 				// Get mouse origin
 				mouseOrigin = Input.mousePosition;
 				isRotating = true;
 			}
 
 			// Get the right mouse button
-			if (Input.GetMouseButtonDown (1)) {
+			if (Input.GetMouseButtonDown (1)) 
+			{
 				// Get mouse origin
 				mouseOrigin = Input.mousePosition;
 				isPanning = true;
 			}
 
 			// Get the middle mouse button
-			if (Input.GetMouseButtonDown (2)) {
+			if (Input.GetMouseButtonDown (2)) 
+			{
 				// Get mouse origin
 				mouseOrigin = Input.mousePosition;
 				isZooming = true;
 			}
-
+			
 			scrollWheel = Input.GetAxis ("Mouse ScrollWheel");
-
+			
 			// Disable movements on button release
 			if (!Input.GetMouseButton (0))
 				isRotating = false;
@@ -102,23 +107,29 @@ public class MoveCamera : MonoBehaviour
 		{
 			Vector3 pos = Camera.main.ScreenToViewportPoint (Input.mousePosition - mouseOrigin);
 
-			if (Camera.main.orthographic) {
+			if (Camera.main.orthographic) 
+			{
 				Camera.main.orthographicSize = Camera.main.orthographicSize - pos.y * zoomSpeed;
-			} else {
+			} 
+			else 
+			{
 				Vector3 move = pos.y * zoomSpeed * transform.forward; 
 				transform.Translate (move, Space.World);
 			}
 		}
 		// Scrollwheel
-		if (scrollWheel != 0) {			
-			if (Camera.main.orthographic) {
+		if (scrollWheel != 0) 
+		{
+			if (Camera.main.orthographic) 
+			{
 				Camera.main.orthographicSize = Camera.main.orthographicSize - scrollWheel;
-			} else {
+			} 
+			else 
+			{
 				Vector3 moveScroll = scrollWheel * zoomSpeed * transform.forward;
 				transform.Translate (moveScroll, Space.World);
 			}
 		}
-
 	}
 
 	public void setCameraTop(){
@@ -139,7 +150,7 @@ public class MoveCamera : MonoBehaviour
 		transform.rotation = cameraStartRotation;
 		Camera.main.orthographic = false;
 	}
-	public void infoCamera(){
+	/* public void infoCamera(){
 		if (GameObject.FindWithTag ("Dialog_error_PLCSIM") == null && GameObject.FindWithTag ("Dialog_camera_info") == null) {
 			Dialog.MessageBox (
 				"Dialog_camera_info", 
@@ -169,5 +180,5 @@ public class MoveCamera : MonoBehaviour
 				heightMax: 450,
 				pos_y: 10);
 		}
-	}
+	} */
 }

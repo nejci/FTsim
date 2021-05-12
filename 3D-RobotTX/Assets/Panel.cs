@@ -17,33 +17,60 @@ public class Panel : MonoBehaviour
     public Transform yellow_left;
 	public Transform prefab;
 	public Transform spawnPoint;
-
+	public Transform showHelpStartToggle;
 
 
     Communication com;
-
+	GameObject helpWindow;
+	int showHelpOnStart;
     
 
     // Use this for initialization
     void Start()
     {
         com = GameObject.Find("Communication").GetComponent<Communication>();
+		helpWindow = GameObject.FindGameObjectWithTag ("UI_help_window");
+
+		if ( !PlayerPrefs.HasKey ("showHelpOnStart")) {
+			PlayerPrefs.SetInt ("showHelpOnStart", 1);
+		}
+		showHelpOnStart = PlayerPrefs.GetInt ("showHelpOnStart");
+		showHelpStartToggle.GetComponent<Toggle> ().isOn = (showHelpOnStart==1);
+		helpWindow.SetActive (showHelpOnStart == 1);
     }
 
     public void reset()
     {
-		Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+		Scene scene = SceneManager.GetActiveScene(); 
+		SceneManager.LoadScene(scene.name);
     }
 
+	public void help_toggle_visibility()
+	{
+		if (helpWindow.activeInHierarchy)
+			helpWindow.SetActive (false);
+		else
+			helpWindow.SetActive (true);
+	}
+
+	public void help_show_on_start_change()
+	{
+		if (showHelpStartToggle.GetComponent<Toggle> ().isOn) {
+			PlayerPrefs.SetInt ("showHelpOnStart", 1);
+		} else {
+			PlayerPrefs.SetInt ("showHelpOnStart", 0);
+		}
+	}
 
     public void newPart()
-    {
+	{
 		// Get position of Odlagalisce
 		Vector3 pos = spawnPoint.position;
         prefab.tag = "Player";
 		Instantiate(prefab, new Vector3(pos.x, 8f, pos.z), Quaternion.identity);
         prefab.tag = "Untagged";
     }
+
 	public void removePart()
 	{
 		GameObject [] ply = GameObject.FindGameObjectsWithTag("Player");
@@ -51,7 +78,6 @@ public class Panel : MonoBehaviour
 			GameObject.Destroy(ply[0]);
 		}
 	}
-
 
     // Update is called once per frame
     void Update()
